@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import 'polygons/polygon.dart';
+
 class RenderController extends ChangeNotifier {
   double targetFrameTime = 1000 / 60;
   double _previousTime = 0;
@@ -11,6 +13,15 @@ class RenderController extends ChangeNotifier {
   // Mova a lógica de estado para cá
   double dz = 1;
   double angle = 0;
+
+  bool showPoints = false;
+  bool showLines = true;
+
+  Polygon polygon;
+
+  RenderController({
+    required this.polygon,
+  });
 
   void start() {
     SchedulerBinding.instance.scheduleFrameCallback(_loop);

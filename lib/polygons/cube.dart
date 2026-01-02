@@ -4,7 +4,6 @@ import 'package:flutter_3d_cube/vector.dart';
 class Cube extends Polygon {
   Cube()
     : super(
-        showPoints: true,
         vertices: [
           Vector(x: 0.25, y: 0.25, z: 0.25),
           Vector(x: -0.25, y: 0.25, z: 0.25),

@@ -13,11 +13,10 @@ class BoardScreen extends StatefulWidget {
 }
 
 class _BoardScreenState extends State<BoardScreen> {
-  final _controller = RenderController();
+  final _controller = RenderController(
+    polygon: Cube(),
+  );
   final _boardSize = Size(800, 800);
-
-  final _cube = Cube();
-  final _penguin = Penguin();
 
   @override
   void initState() {
@@ -30,13 +29,67 @@ class _BoardScreenState extends State<BoardScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           centerTitle: false,
           title: ListenableBuilder(
             listenable: _controller,
             builder: (context, _) {
-              return Text('Delta ${_controller.delta.toStringAsFixed(4)}');
+              return Row(
+                spacing: 20.0,
+                children: [
+                  TextButton.icon(
+                    label: Text('Cube'),
+                    icon: Icon(
+                      _controller.polygon is Cube
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
+                    ),
+                    onPressed: () {
+                      if (_controller.polygon is Cube) return;
+
+                      _controller.polygon = Cube();
+                    },
+                  ),
+                  TextButton.icon(
+                    label: Text('Penguin'),
+                    icon: Icon(
+                      _controller.polygon is Penguin
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
+                    ),
+                    onPressed: () {
+                      if (_controller.polygon is Penguin) return;
+
+                      _controller.polygon = Penguin();
+                    },
+                  ),
+                  Spacer(),
+                  TextButton.icon(
+                    label: Text('Lines'),
+                    icon: Icon(
+                      _controller.showLines
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
+                    ),
+                    onPressed: () {
+                      _controller.showLines = !_controller.showLines;
+                    },
+                  ),
+                  TextButton.icon(
+                    label: Text('Points'),
+                    icon: Icon(
+                      _controller.showPoints
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
+                    ),
+                    onPressed: () {
+                      _controller.showPoints = !_controller.showPoints;
+                    },
+                  ),
+                ],
+              );
             },
           ),
         ),
@@ -46,7 +99,6 @@ class _BoardScreenState extends State<BoardScreen> {
               size: _boardSize,
               painter: Render(
                 controller: _controller,
-                polygon: _cube,
               ),
             ),
           ),

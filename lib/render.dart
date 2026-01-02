@@ -2,18 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/rendering.dart';
 
-import 'polygons/polygon.dart';
 import 'render_controller.dart';
 import 'vector.dart';
 
 class Render extends CustomPainter {
   final RenderController controller;
-  final Polygon polygon;
   final Color backgroundColor;
 
   Render({
     required this.controller,
-    required this.polygon,
     this.backgroundColor = const Color(0xFF000000),
   }) : super(repaint: controller);
 
@@ -21,25 +18,27 @@ class Render extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _clear(canvas, size);
 
-    if (polygon.showPoints) {
-      for (final v in polygon.vertices) {
+    if (controller.showPoints) {
+      for (final v in controller.polygon.vertices) {
         _drawPoint(
           canvas,
-          polygon.color,
+          controller.polygon.color,
           _transform(size, v),
         );
       }
     }
 
-    for (final line in polygon.indices) {
-      for (int i = 0; i < line.length; i++) {
-        final p1 = polygon.vertices[line[i]];
-        final p2 = polygon.vertices[line[(i + 1) % line.length]];
+    if (controller.showLines) {
+      for (final line in controller.polygon.indices) {
+        for (int i = 0; i < line.length; i++) {
+          final p1 = controller.polygon.vertices[line[i]];
+          final p2 = controller.polygon.vertices[line[(i + 1) % line.length]];
 
-        final v1 = _transform(size, p1);
-        final v2 = _transform(size, p2);
+          final v1 = _transform(size, p1);
+          final v2 = _transform(size, p2);
 
-        _drawLine(canvas, polygon.color, v1, v2);
+          _drawLine(canvas, controller.polygon.color, v1, v2);
+        }
       }
     }
   }

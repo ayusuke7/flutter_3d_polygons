@@ -10,7 +10,6 @@ class RenderController extends ChangeNotifier {
   double _previousTime = 0;
   double delta = 0;
 
-  // Mova a lógica de estado para cá
   double dz = 1;
   double angle = 0;
 

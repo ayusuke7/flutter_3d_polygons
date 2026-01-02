@@ -6,8 +6,6 @@
 
 ## 📋 Preview
 
-To include a preview in the `README`, add a `preview.mp4` file at the repository root. This README embeds the video directly (GitHub and many viewers support simple HTML):
-
 <img controls width="640" src="./preview.gif"/>
 
 ---

@@ -1,4 +1,4 @@
-# flutter_3d_cube ✅
+# Flutter 3d Polygons ✅
 
 > Project demonstrating a simple 3D engine written in Flutter using only mathematical calculations and Flutter's `Canvas` rendering.
 
